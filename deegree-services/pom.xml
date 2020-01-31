@@ -42,6 +42,8 @@
     <profile>
       <id>handbook</id>
       <modules>
+        <module>deegree-webservices</module>
+        <module>deegree-webservices-tomcat-bundle</module>
         <module>deegree-webservices-handbook</module>
       </modules>
     </profile>
@@ -57,8 +59,6 @@
     <module>deegree-services-wmts</module>
     <module>deegree-services-wps</module>
     <module>deegree-services-wpvs</module>
-    <module>deegree-webservices</module>
-    <module>deegree-webservices-tomcat-bundle</module>
   </modules>
 
 </project>
