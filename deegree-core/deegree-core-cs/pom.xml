@@ -49,8 +49,8 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>jai</groupId>
-      <artifactId>jai-core</artifactId>
+      <groupId>javax.media</groupId>
+      <artifactId>jai_core</artifactId>
     </dependency>
     <dependency>
       <groupId>java3d</groupId>

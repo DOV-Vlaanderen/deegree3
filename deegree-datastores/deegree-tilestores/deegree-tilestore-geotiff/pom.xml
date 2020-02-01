@@ -49,16 +49,12 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>jai</groupId>
-      <artifactId>jai-codec</artifactId>
+      <groupId>javax.media</groupId>
+      <artifactId>jai_codec</artifactId>
     </dependency>
     <dependency>
-      <groupId>jai</groupId>
-      <artifactId>jai-imageio</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>jai</groupId>
-      <artifactId>jai-mlibwrapper</artifactId>
+      <groupId>javax.media</groupId>
+      <artifactId>jai_imageio</artifactId>
     </dependency>
     <dependency>
       <groupId>it.geosolutions.imageio-ext</groupId>
