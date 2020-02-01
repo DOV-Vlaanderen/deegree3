@@ -1022,6 +1022,17 @@
     <java.version>1.8</java.version>
     <site.dir>${user.home}/Sites</site.dir>
     <deegree-maven-plugin.version>2.0.2</deegree-maven-plugin.version>
+
+        <!-- acd bamboo build -->
+        <acd.issueManagement.url>https://www.milieuinfo.be/jira</acd.issueManagement.url>
+        <acd.ciManagement.system>Bamboo</acd.ciManagement.system>
+        <acd.ciManagement.url>https://www.milieuinfo.be/bamboo</acd.ciManagement.url>
+        <acd.repository.url>https://www.milieuinfo.be/artifactory</acd.repository.url>
+        <acd.repository.snapshot.url>${acd.repository.url}/snapshot</acd.repository.snapshot.url>
+        <acd.repository.release.url>${acd.repository.url}/release</acd.repository.release.url>
+        <gn.schemas.version>3.5</gn.schemas.version>
+        <acd.scm.maven-url>scm:svn:https://svn.milieuinfo.be/productie/svn</acd.scm.maven-url>        
+
   </properties>
 
   <modules>
@@ -1032,9 +1043,9 @@
     <module>deegree-misc</module>
     <module>deegree-processproviders</module>
     <module>deegree-services</module>
+<!--    
     <module>deegree-themes</module>
     <module>deegree-tools</module>
-<!--    
     <module>deegree-workspaces</module>
     <module>deegree-spring</module>
 -->    
@@ -1157,5 +1168,17 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+
+
+    <distributionManagement>
+        <repository>
+          <id>release</id>
+          <url>${acd.repository.release.url}</url>
+        </repository>
+        <snapshotRepository>
+          <id>snapshot</id>
+          <url>${acd.repository.snapshot.url}</url>
+        </snapshotRepository>
+     </distributionManagement>
 
 </project>
