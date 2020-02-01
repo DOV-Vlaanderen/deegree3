@@ -52,7 +52,7 @@ import org.deegree.commons.utils.memory.AllocatedHeapMemory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.sun.opengl.util.BufferUtil;
+//import com.sun.opengl.util.BufferUtil;
 
 /**
  * The <code>BufferSerializer</code> class TODO add class documentation here.
@@ -267,7 +267,7 @@ public class BufferSerializer {
         ByteBuffer result = null;
         if ( numberOfValues != -1 ) {
             if ( direct ) {
-                result = BufferUtil.newByteBuffer( numberOfValues );
+                // result = BufferUtil.newByteBuffer( numberOfValues );
             } else {
                 result = ByteBuffer.allocate( numberOfValues );
             }
