@@ -70,7 +70,7 @@ import org.deegree.geometry.standard.AbstractDefaultGeometry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.vividsolutions.jts.geom.PrecisionModel;
+import org.locationtech.jts.geom.PrecisionModel;
 
 import es.unex.sextante.dataObjects.FeatureImpl;
 import es.unex.sextante.dataObjects.IFeature;
@@ -109,7 +109,7 @@ public class VectorLayerAdapter {
      *            {@link Feature}s. A {@link Feature} without geometry will be skipped.
      * 
      * @return An {@link IVectorLayer} with {@link IFeature}s. The {@link IFeature}s contains only one
-     *         {@link com.vividsolutions.jts.geom.Geometry} and only properties with different names.
+     *         {@link org.locationtech.jts.geom.Geometry} and only properties with different names.
      */
     public static VectorLayerImpl createVectorLayer( FeatureCollection c ) {
 
@@ -137,7 +137,7 @@ public class VectorLayerAdapter {
                 Object[] values = determinePropertiesForVectorLayerGeometry( feature, vectorLayerPropertyDeclarations );
 
                 // create geometry
-                com.vividsolutions.jts.geom.Geometry geom = createJTSGeometryFromFeature( feature );
+                org.locationtech.jts.geom.Geometry geom = createJTSGeometryFromFeature( feature );
 
                 if ( geom != null ) {
                     // add feature
@@ -171,7 +171,7 @@ public class VectorLayerAdapter {
      *            {@link FeatureCollection}, it can handled. A {@link Feature} without geometry will be skipped.
      * 
      * @return An {@link IVectorLayer} with a {@link IFeature}. The {@link IFeature} contains only one
-     *         {@link com.vividsolutions.jts.geom.Geometry} and only properties with different names.
+     *         {@link org.locationtech.jts.geom.Geometry} and only properties with different names.
      */
     public static VectorLayerImpl createVectorLayer( Feature f ) {
 
@@ -188,7 +188,7 @@ public class VectorLayerAdapter {
             Object[] properties = determinePropertiesForVectorLayerGeometry( f, propertiyDeclarations );
 
             // create geometry
-            com.vividsolutions.jts.geom.Geometry geom = createJTSGeometryFromFeature( f );
+            org.locationtech.jts.geom.Geometry geom = createJTSGeometryFromFeature( f );
 
             // create vector layer
             VectorLayerImpl layer = new VectorLayerImpl( "FeatureLayer", crs, propertiyDeclarations );
@@ -210,7 +210,7 @@ public class VectorLayerAdapter {
      *            If the {@link Geometry} isn't simple, it will be linearized.
      * 
      * @return An {@link IVectorLayer} with a {@link IFeature}. The {@link IFeature} contains only one
-     *         {@link com.vividsolutions.jts.geom.Geometry} and no properties.
+     *         {@link org.locationtech.jts.geom.Geometry} and no properties.
      */
     public static VectorLayerImpl createVectorLayer( Geometry g ) {
 
@@ -308,7 +308,7 @@ public class VectorLayerAdapter {
                             throws IteratorException {
 
         // JTS geometry
-        com.vividsolutions.jts.geom.Geometry gJTS;
+        org.locationtech.jts.geom.Geometry gJTS;
 
         IFeatureIterator it = l.iterator();
 
@@ -321,20 +321,20 @@ public class VectorLayerAdapter {
 
         } else { // more shapes in layer
 
-            com.vividsolutions.jts.geom.GeometryFactory gFactoryJTS = new com.vividsolutions.jts.geom.GeometryFactory(
+            org.locationtech.jts.geom.GeometryFactory gFactoryJTS = new org.locationtech.jts.geom.GeometryFactory(
                                                                                                                        new PrecisionModel() );
 
             // create a JTS geometry array and skip emty geometries
-            LinkedList<com.vividsolutions.jts.geom.Geometry> geomList = new LinkedList<com.vividsolutions.jts.geom.Geometry>();
+            LinkedList<org.locationtech.jts.geom.Geometry> geomList = new LinkedList<org.locationtech.jts.geom.Geometry>();
             while ( it.hasNext() ) {
-                com.vividsolutions.jts.geom.Geometry geom = it.next().getGeometry();
+                org.locationtech.jts.geom.Geometry geom = it.next().getGeometry();
                 if ( !geom.isEmpty() ) {
                     geomList.add( geom );
                 }
             }
 
             // create a JTS geometry collection
-            gJTS = gFactoryJTS.createGeometryCollection( geomList.toArray( new com.vividsolutions.jts.geom.Geometry[geomList.size()] ) );
+            gJTS = gFactoryJTS.createGeometryCollection( geomList.toArray( new org.locationtech.jts.geom.Geometry[geomList.size()] ) );
         }
 
         // create a deegree geometry
@@ -344,17 +344,17 @@ public class VectorLayerAdapter {
     }
 
     /**
-     * Creates {@link com.vividsolutions.jts.geom.Geometry} from {@link Feature}.
+     * Creates {@link org.locationtech.jts.geom.Geometry} from {@link Feature}.
      * 
      * @param f
      *            {@link Feature}
-     * @return Returns a {@link com.vividsolutions.jts.geom.Geometry}. If the {@link Feature} contains more than one
+     * @return Returns a {@link org.locationtech.jts.geom.Geometry}. If the {@link Feature} contains more than one
      *         geometry property, they will be merged to a MultiGeometry.
      */
-    private static com.vividsolutions.jts.geom.Geometry createJTSGeometryFromFeature( Feature f ) {
+    private static org.locationtech.jts.geom.Geometry createJTSGeometryFromFeature( Feature f ) {
 
         List<Property> fGeometries = f.getGeometryProperties();
-        com.vividsolutions.jts.geom.Geometry geom;
+        org.locationtech.jts.geom.Geometry geom;
 
         if ( fGeometries.size() == 1 ) { // only one geometry
             geom = createJTSGeometryFromGeometry( (Geometry) fGeometries.get( 0 ).getValue() );
@@ -366,13 +366,13 @@ public class VectorLayerAdapter {
                 LOG.warn( "Feature '" + f.getId() + "' has many geometries, only the first is in use." );
 
                 // merge all geometries
-                // com.vividsolutions.jts.geom.GeometryFactory gFactoryJTS = new
-                // com.vividsolutions.jts.geom.GeometryFactory(
+                // org.locationtech.jts.geom.GeometryFactory gFactoryJTS = new
+                // org.locationtech.jts.geom.GeometryFactory(
                 // new PrecisionModel() );
                 //
                 // // create jts geometry array
-                // com.vividsolutions.jts.geom.Geometry[] geoms = new
-                // com.vividsolutions.jts.geom.Geometry[fGeometries.length];
+                // org.locationtech.jts.geom.Geometry[] geoms = new
+                // org.locationtech.jts.geom.Geometry[fGeometries.length];
                 // for ( int i = 0; i < fGeometries.length; i++ ) {
                 // geoms[i] = createJTSGeometry( (Geometry) fGeometries[i].getValue() );
                 // }
@@ -391,30 +391,30 @@ public class VectorLayerAdapter {
     }
 
     /**
-     * Creates {@link com.vividsolutions.jts.geom.Geometry} from {@link Geometry} .
+     * Creates {@link org.locationtech.jts.geom.Geometry} from {@link Geometry} .
      * 
      * @param g
      *            {@link Geometry}
-     * @return Returns a {@link com.vividsolutions.jts.geom.Geometry}. If the {@link Geometry} isn't simple, it will be
+     * @return Returns a {@link org.locationtech.jts.geom.Geometry}. If the {@link Geometry} isn't simple, it will be
      *         linearized.
      */
-    private static com.vividsolutions.jts.geom.Geometry createJTSGeometryFromGeometry( Geometry g ) {
+    private static org.locationtech.jts.geom.Geometry createJTSGeometryFromGeometry( Geometry g ) {
 
         // create jts geometry
         AbstractDefaultGeometry gAbst = (AbstractDefaultGeometry) g;
-        com.vividsolutions.jts.geom.Geometry gJTS = gAbst.getJTSGeometry();
+        org.locationtech.jts.geom.Geometry gJTS = gAbst.getJTSGeometry();
 
         return gJTS;
     }
 
     /**
-     * Creates {@link Geometry} from {@link com.vividsolutions.jts.geom.Geometry} .
+     * Creates {@link Geometry} from {@link org.locationtech.jts.geom.Geometry} .
      * 
      * @param gJTS
-     *            {@link com.vividsolutions.jts.geom.Geometry}
+     *            {@link org.locationtech.jts.geom.Geometry}
      * @return {@link Geometry} or <code>null</code> if the given geometry is an empty collection.
      */
-    private static Geometry createGeometryFromJTSGeometry( com.vividsolutions.jts.geom.Geometry gJTS, String crsName ) {
+    private static Geometry createGeometryFromJTSGeometry( org.locationtech.jts.geom.Geometry gJTS, String crsName ) {
 
         // default deegree geometry to create a deegree geometry from JTS geometry
         GeometryFactory gFactory = new GeometryFactory();
@@ -685,7 +685,7 @@ public class VectorLayerAdapter {
     }
 
     /**
-     * Creates properties for a {@link com.vividsolutions.jts.geom.Geometry} of the {@link IVectorLayer}. <br>
+     * Creates properties for a {@link org.locationtech.jts.geom.Geometry} of the {@link IVectorLayer}. <br>
      * If a {@link Feature} has more properties with the same name, it will be used the first.
      * 
      * @param f
