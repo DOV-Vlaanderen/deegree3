@@ -1,14 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>deegree-workspace-tests</artifactId>
+  <artifactId>deegree-wmts-tests</artifactId>
   <packaging>war</packaging>
-  <name>deegree-workspace-tests</name>
-  <description>Basic tests that start up deegree example workspaces</description>
+  <name>deegree-wmts-tests</name>
+  <description>Integration tests for deegree Web Map Tiling Service implementation</description>
 
   <parent>
     <groupId>org.deegree</groupId>
     <artifactId>deegree-tests</artifactId>
-    <version>3.4.11-dov-1.0</version>
+    <version>3.4.11-dov-1.0-SNAPSHOT</version>
   </parent>
 
   <repositories>
@@ -31,26 +31,17 @@
         <artifactId>deegree-maven-plugin</artifactId>
         <executions>
           <execution>
-            <id>test-workspaces</id>
+            <id>attach-workspace</id>
             <goals>
-              <goal>test-workspaces</goal>
+              <goal>attach-workspace</goal>
             </goals>
           </execution>
           <execution>
             <id>generate-portnumber</id>
-            <phase>initialize</phase>
+            <phase>pre-integration-test</phase>
             <goals>
               <goal>generate-portnumber</goal>
             </goals>
-          </execution>
-          <execution>
-            <id>default</id>
-            <goals>
-              <goal>assemble-log4j</goal>
-            </goals>
-            <configuration>
-              <deegreeLoggingLevel>WARN</deegreeLoggingLevel>
-            </configuration>
           </execution>
         </executions>
       </plugin>
@@ -84,13 +75,23 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
-          <skip>true</skip>
-          <includes>
-            <include>**/*IT.java</include>
-          </includes>
-          <argLine>-Xmx1024m -Xss128m -XX:-UseGCOverheadLimit -Xincgc -Djava.awt.headless=true</argLine>
+	      <skip>true</skip>
+          <argLine>-Xmx1324m -Xss128m -XX:-UseGCOverheadLimit -Xincgc -Dportnumber=${portnumber} -Drequestdir=${project.basedir}/src/test/requests/</argLine>
         </configuration>
         <executions>
+          <execution>
+            <id>normal-tests</id>
+            <phase>test</phase>
+            <goals>
+              <goal>test</goal>
+            </goals>
+            <configuration>
+              <excludes>
+                <exclude>**/*IT.java</exclude>
+              </excludes>
+              <skip>false</skip>
+            </configuration>
+          </execution>
           <execution>
             <id>integration-test</id>
             <phase>integration-test</phase>
@@ -98,6 +99,9 @@
               <goal>test</goal>
             </goals>
             <configuration>
+              <includes>
+                <include>**/*IT.java</include>
+              </includes>
               <skip>false</skip>
             </configuration>
           </execution>
@@ -109,60 +113,45 @@
   <dependencies>
     <dependency>
       <groupId>org.deegree</groupId>
-      <artifactId>deegree-services-config</artifactId>
+      <artifactId>deegree-services-wmts</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.deegree</groupId>
-      <artifactId>deegree-workspace-wps</artifactId>
-      <version>${project.version}</version>
-      <type>deegree-workspace</type>
-    </dependency>
-    <dependency>
-      <groupId>org.deegree</groupId>
-      <artifactId>deegree-workspace-wps</artifactId>
+      <artifactId>deegree-tilestore-cache</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.deegree</groupId>
-      <artifactId>deegree-workspace-utah</artifactId>
-      <version>${project.version}</version>
-      <type>deegree-workspace</type>
-    </dependency>
-<!--    <dependency>
-      <groupId>org.deegree</groupId>
-      <artifactId>deegree-workspace-csw</artifactId>
-      <version>${project.version}</version>
-      <type>deegree-workspace</type>
-    </dependency>-->
-    <dependency>
-      <groupId>org.deegree</groupId>
-      <artifactId>deegree-workspace-aixm</artifactId>
-      <version>${project.version}</version>
-      <type>deegree-workspace</type>
-    </dependency>
-    <dependency>
-      <groupId>org.deegree</groupId>
-      <artifactId>deegree-workspace-geosciml</artifactId>
-      <version>${project.version}</version>
-      <type>deegree-workspace</type>
-    </dependency>
-    <dependency>
-      <groupId>org.deegree</groupId>
-      <artifactId>deegree-workspace-wcts</artifactId>
-      <version>${project.version}</version>
-      <type>deegree-workspace</type>
-    </dependency>
-    <dependency>
-      <groupId>org.deegree</groupId>
-      <artifactId>deegree-workspace-wcts</artifactId>
+      <artifactId>deegree-tilestore-remotewms</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.deegree</groupId>
-      <artifactId>deegree-workspace-xplan40</artifactId>
+      <artifactId>deegree-tilestore-filesystem</artifactId>
       <version>${project.version}</version>
-      <type>deegree-workspace</type>
+    </dependency>
+    <dependency>
+      <groupId>org.deegree</groupId>
+      <artifactId>deegree-tilestore-geotiff</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.deegree</groupId>
+      <artifactId>deegree-layers-tile</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>it.geosolutions.imageio-ext</groupId>
+      <artifactId>imageio-ext-tiff</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>it.geosolutions.imageio-ext</groupId>
+      <artifactId>imageio-ext-utilities</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
     </dependency>
   </dependencies>
 
