@@ -78,7 +78,8 @@ public enum BaseType {
     /** Property value is of class {@link DateTime}. */
     DATE_TIME( "dateTime", DateTime.class ),
     /** Property value is of class {@link Time}. */
-    TIME( "time", Time.class );
+    TIME( "time", Time.class ),
+    LONG("long", Long.class);
 
     private static final Logger LOG = LoggerFactory.getLogger( BaseType.class );
 
