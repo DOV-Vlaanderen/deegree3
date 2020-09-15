@@ -712,42 +712,42 @@
       <dependency>
         <groupId>org.apache.xmlgraphics</groupId>
         <artifactId>batik-bridge</artifactId>
-        <version>1.7</version>
+        <version>${version-batik}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.xmlgraphics</groupId>
         <artifactId>batik-anim</artifactId>
-        <version>1.7</version>
+        <version>${version-batik}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.xmlgraphics</groupId>
         <artifactId>batik-dom</artifactId>
-        <version>1.7</version>
+        <version>${version-batik}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.xmlgraphics</groupId>
         <artifactId>batik-gvt</artifactId>
-        <version>1.7</version>
+        <version>${version-batik}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.xmlgraphics</groupId>
         <artifactId>batik-svg-dom</artifactId>
-        <version>1.7</version>
+        <version>${version-batik}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.xmlgraphics</groupId>
         <artifactId>batik-awt-util</artifactId>
-        <version>1.7</version>
+        <version>${version-batik}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.xmlgraphics</groupId>
         <artifactId>batik-css</artifactId>
-        <version>1.7</version>
+        <version>${version-batik}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.xmlgraphics</groupId>
         <artifactId>batik-ext</artifactId>
-        <version>1.7</version>
+        <version>${version-batik}</version>
         <exclusions>
           <exclusion>
             <groupId>xml-apis</groupId>
@@ -758,12 +758,12 @@
       <dependency>
         <groupId>org.apache.xmlgraphics</groupId>
         <artifactId>batik-parser</artifactId>
-        <version>1.7</version>
+        <version>${version-batik}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.xmlgraphics</groupId>
         <artifactId>batik-transcoder</artifactId>
-        <version>1.7</version>
+        <version>${version-batik}</version>
         <exclusions>
           <exclusion>
             <groupId>org.apache.xmlgraphics</groupId>
@@ -774,12 +774,12 @@
       <dependency>
         <groupId>org.apache.xmlgraphics</groupId>
         <artifactId>batik-script</artifactId>
-        <version>1.7</version>
+        <version>${version-batik}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.xmlgraphics</groupId>
         <artifactId>batik-util</artifactId>
-        <version>1.7</version>
+        <version>${version-batik}</version>
         <exclusions>
           <exclusion>
             <groupId>org.apache.xmlgraphics</groupId>
@@ -790,12 +790,12 @@
       <dependency>
         <groupId>org.apache.xmlgraphics</groupId>
         <artifactId>batik-codec</artifactId>
-        <version>1.7</version>
+        <version>${version-batik}</version>
         </dependency>
       <dependency>
         <groupId>org.apache.xmlgraphics</groupId>
         <artifactId>batik-xml</artifactId>
-        <version>1.7</version>
+        <version>${version-batik}</version>
       </dependency>
       <dependency>
         <groupId>xml-apis</groupId>
@@ -1016,6 +1016,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <buildTimestamp>${maven.build.timestamp}</buildTimestamp>
     <java.version>1.8</java.version>
+    <version-batik>1.10</version-batik>
     <site.dir>${user.home}/Sites</site.dir>
     <deegree-maven-plugin.version>2.0.2</deegree-maven-plugin.version>
 
